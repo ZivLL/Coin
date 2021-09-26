@@ -1,0 +1,43 @@
+server:
+  port: 38080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mmt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowMultiQueries=true
+    username:
+    password:
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    connect-timeout: 10000
+  security:
+    user:
+      name:
+      password:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger3
+  try-host: http://localhost:${server.port}
+
+
+pagehelper:
+  helper-dialect: mysql
+
+logging:
+  level:
+    com.sipc.mmtbackend.mapper: debug
