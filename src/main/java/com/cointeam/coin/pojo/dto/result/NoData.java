@@ -1,4 +1,4 @@
-package com.cointeam.coin.pojo.result;
+package com.cointeam.coin.pojo.dto.result;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

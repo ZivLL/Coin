@@ -3,7 +3,7 @@ package com.cointeam.coin.service.impl;
 import com.cointeam.coin.mapper.TextMapper;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
-import com.cointeam.coin.pojo.param.TextParam;
+import com.cointeam.coin.pojo.dto.param.TextParam;
 import com.cointeam.coin.service.TextUpLoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

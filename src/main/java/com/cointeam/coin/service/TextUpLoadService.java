@@ -2,7 +2,7 @@ package com.cointeam.coin.service;
 
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
-import com.cointeam.coin.pojo.param.TextParam;
+import com.cointeam.coin.pojo.dto.param.TextParam;
 
 /**
  * @author : ziv_l

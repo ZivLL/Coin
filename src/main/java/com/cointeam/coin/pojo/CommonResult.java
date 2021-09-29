@@ -1,6 +1,6 @@
 package com.cointeam.coin.pojo;
 
-import com.cointeam.coin.pojo.resultEnum.ResultEnum;
+import com.cointeam.coin.pojo.dto.resultEnum.ResultEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

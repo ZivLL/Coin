@@ -1,4 +1,4 @@
-package com.cointeam.coin.pojo.resultEnum;
+package com.cointeam.coin.pojo.dto.resultEnum;
 import lombok.Getter;
 
 /**

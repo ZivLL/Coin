@@ -2,7 +2,7 @@ package com.cointeam.coin.controller;
 
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
-import com.cointeam.coin.pojo.param.TextParam;
+import com.cointeam.coin.pojo.dto.param.TextParam;
 import com.cointeam.coin.service.TextUpLoadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
