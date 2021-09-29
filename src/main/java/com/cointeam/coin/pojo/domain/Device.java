@@ -1,7 +1,5 @@
 package com.cointeam.coin.pojo.domain;
 
-import java.util.Date;
-
 public class Device {
     private Integer id;
 
@@ -9,7 +7,7 @@ public class Device {
 
     private String token;
 
-    private Date time;
+    private Long time;
 
     public Integer getId() {
         return id;
@@ -35,11 +33,11 @@ public class Device {
         this.token = token;
     }
 
-    public Date getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
