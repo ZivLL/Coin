@@ -1,7 +1,5 @@
 package com.cointeam.coin.pojo.domain;
 
-import java.util.Date;
-
 public class Text {
     private Integer id;
 
@@ -13,7 +11,7 @@ public class Text {
 
     private String picUrl;
 
-    private Date time;
+    private Long time;
 
     private Integer type;
 
@@ -57,11 +55,11 @@ public class Text {
         this.picUrl = picUrl;
     }
 
-    public Date getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 

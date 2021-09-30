@@ -3,11 +3,13 @@
 <mapper namespace="com.cointeam.coin.mapper.AdminMapper">
   <resultMap id="BaseResultMap" type="com.cointeam.coin.pojo.domain.Admin">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="device_id" jdbcType="INTEGER" property="deviceId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="active_time" jdbcType="BIGINT" property="activeTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_name, password
+    id, device_id, user_name, password, active_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -20,10 +22,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cointeam.coin.pojo.domain.Admin">
-    insert into admin (id, user_name, password
-      )
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+    insert into admin (id, device_id, user_name, 
+      password, active_time)
+    values (#{id,jdbcType=INTEGER}, #{deviceId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{activeTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.cointeam.coin.pojo.domain.Admin">
     insert into admin
@@ -31,16 +33,25 @@
       <if test="id != null">
         id,
       </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
       <if test="userName != null">
         user_name,
       </if>
       <if test="password != null">
         password,
       </if>
+      <if test="activeTime != null">
+        active_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -48,24 +59,35 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cointeam.coin.pojo.domain.Admin">
     update admin
     <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=INTEGER},
+      </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="activeTime != null">
+        active_time = #{activeTime,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cointeam.coin.pojo.domain.Admin">
     update admin
-    set user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+    set device_id = #{deviceId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      active_time = #{activeTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

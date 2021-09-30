@@ -1,6 +1,6 @@
 package com.cointeam.coin.pojo;
 
-import com.cointeam.coin.pojo.resultEnum.ResultEnum;
+import com.cointeam.coin.pojo.dto.resultEnum.ResultEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -49,6 +49,14 @@ public class CommonResult<T> {
      */
     public static <T> CommonResult<T> success(String message) {
         return new CommonResult<>(ResultEnum.SUCCESS.getCode(), message, null);
+    }
+
+    /**
+     * 成功返回消息 + 数据
+     * @return 成功返回消息 + 数据
+     */
+    public static <T> CommonResult<T> success(String message, T data) {
+        return new CommonResult<>(ResultEnum.SUCCESS.getCode(), message, data);
     }
 
     /**
