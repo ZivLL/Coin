@@ -100,12 +100,15 @@ public class CardServiceImpl implements CardService {
         return CommonResult.success(cardDetailsResult);
     }
 
+    /**
+     * 提交分支到审核平台
+     */
     @Override
     public CommonResult<NoData> insertBranch(InsertBranchParam insertBranchParam) {
 
         cardPartMapper.insertAuditBranch(insertBranchParam);
 
-        return CommonResult.success();
+        return CommonResult.success("提交成功");
     }
 
     /**

@@ -7,6 +7,7 @@ import com.cointeam.coin.pojo.dto.param.LoginParam;
 import com.cointeam.coin.pojo.dto.result.LoginAuthResult;
 import com.cointeam.coin.service.LoginService;
 import com.hanzoy.utils.JWTUtils;
+import com.hanzoy.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,14 +35,17 @@ public class LoginServiceImpl implements LoginService {
         LoginAuthResult loginAuthResult = new LoginAuthResult();
 
         //通过name搜索数据库中是否有预设的user
-        Device users = userMapper.selectUserByName(loginParam.getUserId(), loginParam.getPassword());
+        String userId = loginParam.getUserId();
+        String password = loginParam.getPassword();
+        String s = MD5Utils.MD5Upper(password);
+        Device users = userMapper.selectUserByName(userId,s);
 
         if (users == null) {
             return CommonResult.fail("A0400","账号密码错误");
         } else {
             String token = writeUserToToken(users);
             loginAuthResult.setToken(token);
-            userMapper.updateToken(token,users.getUserName());
+            userMapper.updateToken(token,users.getUserId());
             return CommonResult.success(loginAuthResult);
         }
 

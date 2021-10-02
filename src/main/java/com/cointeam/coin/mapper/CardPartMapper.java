@@ -26,4 +26,5 @@ public interface CardPartMapper {
 
     void insertAuditBranch(@Param("insertBranchParam") InsertBranchParam insertBranchParam);
 
+
 }
