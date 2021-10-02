@@ -7,7 +7,7 @@
             c.id,
             c.title,
             c.content,
-            c.time,
+            c.time as time,
             c.type
         FROM
             coin.card c

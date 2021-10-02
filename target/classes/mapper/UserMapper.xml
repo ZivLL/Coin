@@ -19,7 +19,7 @@
   <select id="selectUserByName" resultType="com.cointeam.coin.pojo.domain.Device">
     select *
     from coin.device
-    where user_id = #{userName}
+    where user_id = #{userId}
     and password = #{password}
   </select>
 

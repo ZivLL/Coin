@@ -6,6 +6,7 @@ import com.cointeam.coin.pojo.bo.CardBo;
 import com.cointeam.coin.pojo.bo.CardDetailsBo;
 import com.cointeam.coin.pojo.dto.param.InsertBranchParam;
 import com.cointeam.coin.pojo.dto.param.RoleParam;
+import com.cointeam.coin.pojo.dto.result.CardDetailsResult;
 import com.cointeam.coin.pojo.dto.result.CardResult;
 import com.cointeam.coin.pojo.dto.result.NoData;
 import com.cointeam.coin.pojo.po.CardDetailsPo;
@@ -15,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author 李春强
@@ -38,11 +41,12 @@ public class CardServiceImpl implements CardService {
      * 卡片展示
      */
     @Override
-    public CommonResult<CardResult> selectCard(RoleParam roleParam) {
+    public CommonResult selectCard(RoleParam roleParam) {
 
         CardResult cardResult = new CardResult();
         ArrayList<CardBo> cardBos = new ArrayList<>();
         ArrayList<CardPo> cardPos = cardPartMapper.selectCard(roleParam);
+
         for (CardPo cardPo : cardPos) {
 
             CardBo cardBo = new CardBo();
@@ -64,10 +68,10 @@ public class CardServiceImpl implements CardService {
      * 卡片内容详情（定位到个体）
      */
     @Override
-    public CommonResult<CardResult> selectCardDetails(RoleParam roleParam) {
+    public CommonResult<CardDetailsResult> selectCardDetails(RoleParam roleParam) {
 
-        CardResult cardResult = new CardResult();
-        ArrayList<CardDetailsBo> cardBos = new ArrayList<>();
+        CardDetailsResult cardDetailsResult = new CardDetailsResult();
+        ArrayList<CardDetailsBo> CardDetailsBos = new ArrayList<>();
         ArrayList<CardDetailsPo> cardContent = cardPartMapper.selectCardContent(roleParam);
 
         for (CardDetailsPo cardDetailsPo : cardContent) {
@@ -90,9 +94,10 @@ public class CardServiceImpl implements CardService {
             cardDetailsBo.setBranchTime(time);
             cardDetailsBo.setStatus(cardDetailsPo.getStatus());
 
-            cardBos.add(cardDetailsBo);
+            CardDetailsBos.add(cardDetailsBo);
         }
-        return CommonResult.success(cardResult);
+        cardDetailsResult.setCardDetailsBos(CardDetailsBos);
+        return CommonResult.success(cardDetailsResult);
     }
 
     @Override

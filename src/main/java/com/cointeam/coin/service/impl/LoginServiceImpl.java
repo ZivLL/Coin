@@ -34,10 +34,10 @@ public class LoginServiceImpl implements LoginService {
         LoginAuthResult loginAuthResult = new LoginAuthResult();
 
         //通过name搜索数据库中是否有预设的user
-        Device users = userMapper.selectUserByName(loginParam.getUsername(), loginParam.getPassword());
+        Device users = userMapper.selectUserByName(loginParam.getUserId(), loginParam.getPassword());
 
         if (users == null) {
-            return CommonResult.fail("A0400a","账号密码错误");
+            return CommonResult.fail("A0400","账号密码错误");
         } else {
             String token = writeUserToToken(users);
             loginAuthResult.setToken(token);
