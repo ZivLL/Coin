@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "token",
+      "type": "com.cointeam.coin.utils.JwtUtils",
+      "sourceType": "com.cointeam.coin.utils.JwtUtils"
+    }
+  ],
+  "properties": [
+    {
+      "name": "token.sign",
+      "type": "java.lang.String",
+      "sourceType": "com.cointeam.coin.utils.JwtUtils"
+    },
+    {
+      "name": "token.time",
+      "type": "java.lang.String",
+      "sourceType": "com.cointeam.coin.utils.JwtUtils"
+    }
+  ],
+  "hints": []
+}

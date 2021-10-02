@@ -1,5 +1,6 @@
 package com.cointeam.coin.controller;
 
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.InsertBranchParam;
 import com.cointeam.coin.pojo.dto.param.RoleParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/role")
+@UserLoginToken
 public class CardController {
 
     @Autowired

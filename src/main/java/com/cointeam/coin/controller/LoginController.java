@@ -1,8 +1,10 @@
 package com.cointeam.coin.controller;
 
 
+import com.cointeam.coin.annotation.PassToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.LoginParam;
+import com.cointeam.coin.pojo.dto.result.LoginAuthResult;
 import com.cointeam.coin.pojo.dto.result.NoData;
 import com.cointeam.coin.service.LoginService;
 import com.sun.corba.se.impl.orbutil.graph.NodeData;
@@ -25,7 +27,7 @@ public class LoginController{
     LoginService loginService;
 
     @PostMapping("/login")
-    public CommonResult<HashMap<String, Object>> login(@RequestBody LoginParam loginParam) {
+    public CommonResult<LoginAuthResult> login(@RequestBody LoginParam loginParam) {
         return loginService.login(loginParam);
     }
 

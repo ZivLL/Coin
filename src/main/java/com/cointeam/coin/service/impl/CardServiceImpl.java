@@ -13,13 +13,22 @@ import com.cointeam.coin.pojo.po.CardPo;
 import com.cointeam.coin.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+/**
+ * @Author 李春强
+ * @Date 2021/10/1 20:14
+ * @Param
+ * @Return
+ * @Description: card实现类
+ */
 @Service
+@Transactional
 public class CardServiceImpl implements CardService {
 
     @Autowired

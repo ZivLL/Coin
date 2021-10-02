@@ -1,9 +1,16 @@
 package com.cointeam.coin.pojo.domain;
 
+import lombok.Data;
+
+@Data
 public class Device {
     private Integer id;
 
     private String nickName;
+
+    private String userName;
+
+    private String password;
 
     private String token;
 

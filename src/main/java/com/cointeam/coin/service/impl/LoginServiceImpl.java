@@ -1,44 +1,55 @@
 package com.cointeam.coin.service.impl;
 
-import com.cointeam.coin.mapper.AdminMapper;
+import com.cointeam.coin.mapper.UserMapper;
 import com.cointeam.coin.pojo.CommonResult;
-import com.cointeam.coin.pojo.domain.Admin;
+import com.cointeam.coin.pojo.domain.Device;
 import com.cointeam.coin.pojo.dto.param.LoginParam;
-import com.cointeam.coin.pojo.dto.result.NoData;
+import com.cointeam.coin.pojo.dto.result.LoginAuthResult;
 import com.cointeam.coin.service.LoginService;
 import com.hanzoy.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
-
-
+/**
+ * @Author 李春强
+ * @Date 2021/10/1 20:14
+ * @Param
+ * @Return
+ * @Description: 用户登录实现类
+ */
 @Service
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
     JWTUtils jwtUtils;
 
-    @Resource
-    AdminMapper adminMapper;
+    @Autowired
+    UserMapper userMapper;
 
     @Override
-    public CommonResult<HashMap<String, Object>> login(LoginParam loginParam) {
+    public CommonResult<LoginAuthResult> login(@RequestBody LoginParam loginParam) {
 
-        Admin admin = adminMapper.findAdmin(loginParam);
-        if (admin == null) {
-            return CommonResult.fail("1000","账号密码错误");
+        //创建返回体实体对象
+        LoginAuthResult loginAuthResult = new LoginAuthResult();
+
+        //通过name搜索数据库中是否有预设的user
+        Device users = userMapper.selectUserByName(loginParam.getUsername(), loginParam.getPassword());
+
+        if (users == null) {
+            return CommonResult.fail("A0400a","账号密码错误");
+        } else {
+            String token = writeUserToToken(users);
+            loginAuthResult.setToken(token);
+            userMapper.updateToken(token,users.getUserName());
+            return CommonResult.success(loginAuthResult);
         }
-        HashMap<String,Object> data = new HashMap<>();
-        String token = jwtUtils.createToken(admin);
-        data.put("token", token);
 
-        //获取token里面的值
-        Admin bean = jwtUtils.getBean(token,Admin.class);
-
-        //认证token
-        jwtUtils.checkToken(token);
-        return CommonResult.success(data);
     }
+
+    @Override
+    public String writeUserToToken(Object user) {
+        return jwtUtils.createTokenCustomFields(user, "userName", "password");
+    }
+
 }

@@ -130,4 +130,8 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> userUsernameExist() {
         return new CommonResult<T>(ResultEnum.USER_USERNAME_EXIST.getCode(), ResultEnum.USER_USERNAME_EXIST.getMessage(), null);
     }
+
+    public static <T> CommonResult<T> paramError(String message){
+        return new CommonResult<T>(ResultEnum.FAILED.getCode(), ResultEnum.FAILED.getMessage(),null);
+    }
 }
