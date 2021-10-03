@@ -4,9 +4,12 @@ import com.cointeam.coin.mapper.TextMapper;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
 import com.cointeam.coin.pojo.dto.param.TextParam;
-import com.cointeam.coin.service.TextUpLoadService;
+import com.cointeam.coin.service.TextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author : ziv_l
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @description: text上传接口实现类
  */
 @Service
-public class TextUpLoadServiceImpl implements TextUpLoadService {
+public class TextServiceImpl implements TextService {
 
     @Autowired
     TextMapper textMapper;
@@ -34,6 +37,7 @@ public class TextUpLoadServiceImpl implements TextUpLoadService {
         text.setTitle(textParam.getTitle());
         text.setPicUrl(textParam.getPicUrl());
         text.setType(textParam.getType());
+        text.setPublicTime(textParam.getPublicTime());
         // 区分 id 以判断是否为更新或者插入操作
         // insert when id is null
         if (textParam.getId() == null) {
@@ -44,5 +48,23 @@ public class TextUpLoadServiceImpl implements TextUpLoadService {
         if (textMapper.selectByPrimaryKey(textParam.getId()) == null) return CommonResult.fail("该文章不存在，更新失败");
         textMapper.updateByPrimaryKey(text);
         return CommonResult.success("文章更新成功", text);
+    }
+
+    @Override
+    public CommonResult<Text> getText(Integer type) {
+        // check type
+        if (type <= 0 || type > 4) return CommonResult.fail("参数异常");
+
+        List<Text> texts = textMapper.selectAllByType(type);
+        if (texts.isEmpty()) return CommonResult.fail("暂无今日文章");
+        Long aDay = 24 * 60 * 60 * 1000L;
+        for (Text text : texts) {
+            Date date = new Date();
+            long textEndTime = text.getPublicTime() + aDay - 1;
+            if (date.getTime() >= text.getPublicTime() && date.getTime() <= textEndTime) {
+                return CommonResult.success(text);
+            }
+        }
+        return CommonResult.fail("数据库资源错误");
     }
 }

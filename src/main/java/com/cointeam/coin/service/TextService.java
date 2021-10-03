@@ -9,7 +9,9 @@ import com.cointeam.coin.pojo.dto.param.TextParam;
  * create at:  2021/9/28  20:50
  * @description: text上传
  */
-public interface TextUpLoadService {
+public interface TextService {
 
     CommonResult<Text> textUpload(TextParam textParam);
+
+    CommonResult<Text> getText(Integer type);
 }
