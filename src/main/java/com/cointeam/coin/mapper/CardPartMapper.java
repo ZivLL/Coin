@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author 李春强
@@ -24,4 +25,6 @@ public interface CardPartMapper {
     ArrayList<CardDetailsPo> selectCardContent(@Param("roleParam") RoleParam roleParam);
 
     void insertAuditBranch(@Param("insertBranchParam") InsertBranchParam insertBranchParam);
+
+
 }

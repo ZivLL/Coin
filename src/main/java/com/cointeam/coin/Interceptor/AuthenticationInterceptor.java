@@ -3,21 +3,21 @@ package com.cointeam.coin.Interceptor;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.cointeam.coin.annotation.PassToken;
 import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.mapper.UserMapper;
 import com.cointeam.coin.pojo.domain.Device;
-import org.apache.catalina.User;
+import com.cointeam.coin.utils.redis.RedisUtil;
+import com.hanzoy.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+
 
 /**
  * @Author 李春强
@@ -30,6 +30,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    JWTUtils jwtUtils;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
@@ -51,20 +57,20 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
                 // 执行认证
-                if (token == null) {
-                    throw new RuntimeException("无token，请重新登录");
+                if (null == token) {
+                    throw new RuntimeException("Illegal request，token is necessary!");
                 }
 
-                try {
-                    String userName = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException j) {
-                    throw new RuntimeException("A0400");
-                }
+//                try {
+                    String userId = jwtUtils.getBean(token, Device.class).getUserId();
 
-                String userName = null;
-                Device Admin = userMapper.findAdminByUserName(userName);
+//                } catch (JWTDecodeException j) {
+//                    throw new RuntimeException("A0400");
+//                }
+
+                Device Admin = userMapper.findAdminByUserName(userId);
                 if (Admin == null) {
-                    throw new RuntimeException("用户不存在，请重新登录");
+                    throw new RuntimeException("Illegal request，token is Invalid!");
                 }
 
                 // 验证 token
@@ -91,5 +97,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                                 HttpServletResponse httpServletResponse,
                                 Object o, Exception e) throws Exception {
     }
+
+
 
 }

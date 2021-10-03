@@ -4,6 +4,7 @@ import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.InsertBranchParam;
 import com.cointeam.coin.pojo.dto.param.RoleParam;
+import com.cointeam.coin.pojo.dto.result.CardDetailsResult;
 import com.cointeam.coin.pojo.dto.result.CardResult;
 import com.cointeam.coin.pojo.dto.result.NoData;
 import com.cointeam.coin.service.CardService;
@@ -17,19 +18,19 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/role")
-@UserLoginToken
+
 public class CardController {
 
     @Autowired
     CardService cardService;
 
-    @GetMapping("/type")
-    public CommonResult<CardResult> selectCard(@RequestParam RoleParam roleParam){
+    @PostMapping("/card/type")
+    public CommonResult<CardResult> selectCard(@RequestBody RoleParam roleParam){
         return cardService.selectCard(roleParam);
     }
 
     @GetMapping("/card/details")
-    public CommonResult<CardResult> selectCardDetails(@RequestParam RoleParam roleParam){
+    public CommonResult<CardDetailsResult> selectCardDetails(@RequestParam RoleParam roleParam){
         return cardService.selectCardDetails(roleParam);
     }
 
