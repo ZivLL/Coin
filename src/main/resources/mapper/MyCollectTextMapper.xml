@@ -3,12 +3,12 @@
 <mapper namespace="com.cointeam.coin.mapper.MyCollectTextMapper">
   <resultMap id="BaseResultMap" type="com.cointeam.coin.pojo.domain.MyCollectText">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="divice_id" jdbcType="INTEGER" property="diviceId" />
+    <result column="device_id" jdbcType="INTEGER" property="deviceId" />
     <result column="text_id" jdbcType="INTEGER" property="textId" />
     <result column="time" jdbcType="BIGINT" property="time" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, divice_id, text_id, time
+    id, device_id, text_id, time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -16,14 +16,14 @@
     from my_collect_text
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByDeviceIdAndTextId" parameterType="java.lang.Integer">
     delete from my_collect_text
-    where id = #{id,jdbcType=INTEGER}
+    where device_id = #{deviceId,jdbcType=INTEGER} and text_id = #{textId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cointeam.coin.pojo.domain.MyCollectText">
-    insert into my_collect_text (id, divice_id, text_id, 
+    insert into my_collect_text (id, device_id, text_id, 
       time)
-    values (#{id,jdbcType=INTEGER}, #{diviceId,jdbcType=INTEGER}, #{textId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{deviceId,jdbcType=INTEGER}, #{textId,jdbcType=INTEGER}, 
       #{time,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.cointeam.coin.pojo.domain.MyCollectText">
@@ -32,8 +32,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="diviceId != null">
-        divice_id,
+      <if test="deviceId != null">
+        device_id,
       </if>
       <if test="textId != null">
         text_id,
@@ -46,8 +46,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="diviceId != null">
-        #{diviceId,jdbcType=INTEGER},
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
       </if>
       <if test="textId != null">
         #{textId,jdbcType=INTEGER},
@@ -60,8 +60,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cointeam.coin.pojo.domain.MyCollectText">
     update my_collect_text
     <set>
-      <if test="diviceId != null">
-        divice_id = #{diviceId,jdbcType=INTEGER},
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=INTEGER},
       </if>
       <if test="textId != null">
         text_id = #{textId,jdbcType=INTEGER},
@@ -74,9 +74,15 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cointeam.coin.pojo.domain.MyCollectText">
     update my_collect_text
-    set divice_id = #{diviceId,jdbcType=INTEGER},
+    set device_id = #{deviceId,jdbcType=INTEGER},
       text_id = #{textId,jdbcType=INTEGER},
       time = #{time,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByDeviceId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from my_collect_text
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
 </mapper>

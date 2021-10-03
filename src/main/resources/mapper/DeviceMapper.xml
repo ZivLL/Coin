@@ -79,4 +79,10 @@
       time = #{time,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByToken" parameterType="java.lang.String" resultType="com.cointeam.coin.pojo.domain.Device">
+    select
+    <include refid="Base_Column_List" />
+    from device
+    where token = #{token,jdbcType=VARCHAR}
+  </select>
 </mapper>

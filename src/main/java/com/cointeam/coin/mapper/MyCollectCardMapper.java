@@ -3,9 +3,11 @@ package com.cointeam.coin.mapper;
 import com.cointeam.coin.pojo.domain.MyCollectCard;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface MyCollectCardMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByDeviceIdAndCardId(Integer deviceId, Integer cardId);
 
     int insert(MyCollectCard record);
 
@@ -16,4 +18,6 @@ public interface MyCollectCardMapper {
     int updateByPrimaryKeySelective(MyCollectCard record);
 
     int updateByPrimaryKey(MyCollectCard record);
+
+    List<MyCollectCard> selectByDeviceId(Integer deviceId);
 }

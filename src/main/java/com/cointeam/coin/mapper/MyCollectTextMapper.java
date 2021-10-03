@@ -1,9 +1,13 @@
 package com.cointeam.coin.mapper;
 
 import com.cointeam.coin.pojo.domain.MyCollectText;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
+@Mapper
 public interface MyCollectTextMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByDeviceIdAndTextId(Integer deviceId, Integer textId);
 
     int insert(MyCollectText record);
 
@@ -14,4 +18,6 @@ public interface MyCollectTextMapper {
     int updateByPrimaryKeySelective(MyCollectText record);
 
     int updateByPrimaryKey(MyCollectText record);
+
+    List<MyCollectText> selectByDeviceId(Integer deviceId);
 }

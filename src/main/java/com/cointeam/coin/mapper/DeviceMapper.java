@@ -16,4 +16,6 @@ public interface DeviceMapper {
     int updateByPrimaryKeySelective(Device record);
 
     int updateByPrimaryKey(Device record);
+
+    Device selectByToken(String token);
 }
