@@ -33,8 +33,10 @@
     </select>
 
     <insert id="insertAuditBranch" useGeneratedKeys="true" keyColumn="id">
+        ALTER TABLE device
+        AUTO_INCREMENT = 1;
         insert coin.audit_branch(device_id, card_id, content, type, status, time, submit_times)
-        VALUES ()
+        VALUES (#{insertBranchParam.deviceId},#{insertBranchParam.cardId},#{insertBranchParam.branchContent},#{insertBranchParam.type},#{insertBranchParam.status},#{insertBranchParam.time},1)
     </insert>
 
     <update id="">

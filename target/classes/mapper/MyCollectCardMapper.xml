@@ -16,9 +16,9 @@
     from my_collect_card
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByDeviceIdAndCardId" parameterType="java.lang.Integer">
     delete from my_collect_card
-    where id = #{id,jdbcType=INTEGER}
+    where device_id = #{deviceId,jdbcType=INTEGER} and card_id = #{cardId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cointeam.coin.pojo.domain.MyCollectCard">
     insert into my_collect_card (id, device_id, card_id, 
@@ -79,4 +79,10 @@
       time = #{time,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByDeviceId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from my_collect_card
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
 </mapper>
