@@ -21,7 +21,7 @@ public interface UserMapper {
     /**
      * 通过userName和password查询用户
      */
-    Device selectUserByName(@Param("userName") String userName,
+    Device selectUserByName(@Param("userId") String userId,
                             @Param("password") String password);
 
     /**

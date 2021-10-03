@@ -8,7 +8,7 @@ public class Device {
 
     private String nickName;
 
-    private String userName;
+    private String userId;
 
     private String password;
 
