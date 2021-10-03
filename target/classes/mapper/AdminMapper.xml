@@ -90,4 +90,15 @@
       active_time = #{activeTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+<!--  李春强-->
+  <select id="findAdmin" resultType="com.cointeam.coin.pojo.domain.Admin">
+    select *
+    from admin
+    where user_name = #{loginParam.userName}
+    and password = #{loginParam.password}
+  </select>
+
+
 </mapper>

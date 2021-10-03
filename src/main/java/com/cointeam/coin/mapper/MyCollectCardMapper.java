@@ -1,7 +1,9 @@
 package com.cointeam.coin.mapper;
 
 import com.cointeam.coin.pojo.domain.MyCollectCard;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface MyCollectCardMapper {
     int deleteByPrimaryKey(Integer id);
 

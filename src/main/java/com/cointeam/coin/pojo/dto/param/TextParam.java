@@ -33,4 +33,7 @@ public class TextParam {
 
     @NotNull(message = "不能为空")
     private Integer type;
+
+    @NotNull(message = "不能为空")
+    private Long publicTime;
 }

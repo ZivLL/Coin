@@ -15,6 +15,8 @@ public class Text {
 
     private Integer type;
 
+    private Long publicTime;
+
     public Integer getId() {
         return id;
     }
@@ -71,6 +73,14 @@ public class Text {
         this.type = type;
     }
 
+    public Long getPublicTime() {
+        return publicTime;
+    }
+
+    public void setPublicTime(Long publicTime) {
+        this.publicTime = publicTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -84,6 +94,7 @@ public class Text {
         sb.append(", picUrl=").append(picUrl);
         sb.append(", time=").append(time);
         sb.append(", type=").append(type);
+        sb.append(", publicTime=").append(publicTime);
         sb.append("]");
         return sb.toString();
     }
