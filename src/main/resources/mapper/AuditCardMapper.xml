@@ -14,18 +14,21 @@
   <sql id="Base_Column_List">
     id, device_id, title, content, type, status, time, submit_times
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByDeviceId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from audit_card
-    where id = #{id,jdbcType=INTEGER}
+    where device_id = #{deviceId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from audit_card
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cointeam.coin.pojo.domain.AuditCard">
-    insert into audit_card (id, device_id, title, 
+    <selectKey  keyProperty="id" order="AFTER" resultType="int">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into audit_card (id, device_id, title,
       content, type, status, 
       time, submit_times)
     values (#{id,jdbcType=INTEGER}, #{deviceId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 

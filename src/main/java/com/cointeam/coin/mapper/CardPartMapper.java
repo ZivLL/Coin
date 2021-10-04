@@ -1,5 +1,6 @@
 package com.cointeam.coin.mapper;
 
+import com.cointeam.coin.pojo.bo.CardDetailsBo;
 import com.cointeam.coin.pojo.dto.param.InsertBranchParam;
 import com.cointeam.coin.pojo.dto.param.RoleParam;
 import com.cointeam.coin.pojo.po.CardDetailsPo;
@@ -26,5 +27,10 @@ public interface CardPartMapper {
 
     void insertAuditBranch(@Param("insertBranchParam") InsertBranchParam insertBranchParam);
 
-
+    /**
+     * @author ziv
+     * @param cardId card id
+     * @return result
+     */
+    List<CardDetailsBo> selectCarBranches(Integer cardId);
 }

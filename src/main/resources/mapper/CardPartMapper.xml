@@ -39,8 +39,18 @@
         VALUES (#{insertBranchParam.deviceId},#{insertBranchParam.cardId},#{insertBranchParam.branchContent},#{insertBranchParam.type},#{insertBranchParam.status},#{insertBranchParam.time},1)
     </insert>
 
-    <update id="">
-
-    </update>
+    <select id="selectCardBranches" resultType="com.cointeam.coin.pojo.bo.CardDetailsBo">
+        select bac.branch_id, bac.device_id, bac.branch_card_id, bac.branch_content, bac.branch_card_id, bac.branchTime,
+               c.title, c.content, bac.branch_content as branchContent, bac.branchTime as branchTime
+        from coin.card c
+                 left join (select b.id as branch_id, b.device_id as device_id, b.card_id as branch_card_id,
+                                   b.content as branch_content, b.time as branchTime,
+                                   ab.status
+                            from branch b
+                                     left join audit_branch ab
+                                               on b.time = ab.time) as bac
+                           on bac.branch_card_id = c.id
+        where bac.branch_card_id = #{cardId,jdbcType=INTEGER}
+    </select>
 
 </mapper>

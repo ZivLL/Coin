@@ -2,6 +2,7 @@ package com.cointeam.coin.service;
 
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.InsertBranchParam;
+import com.cointeam.coin.pojo.dto.param.InsertCardParam;
 import com.cointeam.coin.pojo.dto.param.RoleParam;
 import com.cointeam.coin.pojo.dto.result.CardDetailsResult;
 import com.cointeam.coin.pojo.dto.result.CardResult;
@@ -15,4 +16,5 @@ public interface CardService {
 
     CommonResult<NoData> insertBranch(InsertBranchParam insertBranchParam);
 
+    CommonResult<InsertCardParam> insertCard(InsertCardParam insertCardParam);
 }

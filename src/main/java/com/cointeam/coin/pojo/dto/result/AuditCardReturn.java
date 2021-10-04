@@ -20,7 +20,7 @@ public class AuditCardReturn {
     List<AuditCard> auditCards = new ArrayList<>();
 
     @Data
-    private static class AuditCard{
+    public static class AuditCard{
 
         private String title;
 

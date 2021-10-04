@@ -1,6 +1,6 @@
 package com.cointeam.coin.pojo.dto.result;
 
-import com.cointeam.coin.pojo.domain.Branch;
+import com.cointeam.coin.pojo.bo.CardDetailsBo;
 import com.cointeam.coin.pojo.domain.Card;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -22,19 +22,15 @@ public class AuditBranchReturn {
     private List<AuditBranch> auditBranches = new ArrayList<>();
 
     @Data
-    private static class AuditBranch{
+    public static class AuditBranch{
         private Card card;
 
-        private final List<Branch> branches = new ArrayList<>();
+        private List<CardDetailsBo> cardDetailsBos = new ArrayList<>();
 
         private MyBranch myBranch;
     }
     @Data
-    private static class MyBranch{
-
-        private Integer deviceId;
-
-        private Integer cardId;
+    public static class MyBranch{
 
         private String content;
 

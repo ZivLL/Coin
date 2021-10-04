@@ -1,7 +1,11 @@
 package com.cointeam.coin.mapper;
 
 import com.cointeam.coin.pojo.domain.AuditCard;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
+@Mapper
 public interface AuditCardMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -9,7 +13,7 @@ public interface AuditCardMapper {
 
     int insertSelective(AuditCard record);
 
-    AuditCard selectByPrimaryKey(Integer id);
+    List<AuditCard> selectByDeviceId(Integer deviceId);
 
     int updateByPrimaryKeySelective(AuditCard record);
 

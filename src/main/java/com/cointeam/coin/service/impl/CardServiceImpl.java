@@ -1,10 +1,15 @@
 package com.cointeam.coin.service.impl;
 
+import com.cointeam.coin.mapper.AuditCardMapper;
 import com.cointeam.coin.mapper.CardPartMapper;
+import com.cointeam.coin.mapper.DeviceMapper;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.bo.CardBo;
 import com.cointeam.coin.pojo.bo.CardDetailsBo;
+import com.cointeam.coin.pojo.domain.AuditCard;
+import com.cointeam.coin.pojo.domain.Device;
 import com.cointeam.coin.pojo.dto.param.InsertBranchParam;
+import com.cointeam.coin.pojo.dto.param.InsertCardParam;
 import com.cointeam.coin.pojo.dto.param.RoleParam;
 import com.cointeam.coin.pojo.dto.result.CardDetailsResult;
 import com.cointeam.coin.pojo.dto.result.CardResult;
@@ -16,10 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +42,12 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     CardPartMapper cardPartMapper;
+    @Autowired
+    HttpServletRequest httpServletRequest;
+    @Autowired
+    DeviceMapper deviceMapper;
+    @Autowired
+    AuditCardMapper auditCardMapper;
 
     /**
      * 卡片展示
@@ -112,6 +124,47 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
+     * @author ziv
+     */
+    @Override
+    public CommonResult<InsertCardParam> insertCard(InsertCardParam insertCardParam) {
+        // check device if exist
+        // get device id
+        String token = httpServletRequest.getHeader("token");
+        Device device = deviceMapper.selectByToken(token);
+        // check device
+        if (device == null) return CommonResult.fail("该账号不存在");
+
+        // check submit times
+        List<AuditCard> auditCards = auditCardMapper.selectByDeviceId(device.getId());
+        int times = 0;
+        if (!auditCards.isEmpty()) {
+            for (AuditCard auditCard : auditCards) {
+                if (auditCard.getTime() >= todayZeroTime() && auditCard.getTime() < System.currentTimeMillis()) {
+                    times = (int) (times + auditCard.getSubmitTimes());
+                }
+            }
+        }
+        if (times >= 5) return CommonResult.fail("今日提交总次数达到5次，请明日再试");
+
+        // set insert example
+        AuditCard auditCard = new AuditCard();
+        auditCard.setContent(insertCardParam.getContent());
+        auditCard.setDeviceId(device.getId());
+        auditCard.setTitle(insertCardParam.getTitle());
+        Long submitTimes = auditCard.getSubmitTimes();
+        auditCard.setSubmitTimes(submitTimes + 1);
+        auditCard.setTime(System.currentTimeMillis());
+
+        // insert
+        if (auditCardMapper.insert(auditCard) == 1) {
+            insertCardParam.setId(auditCard.getId());
+            return CommonResult.success(insertCardParam);
+        }
+        return CommonResult.fail("提交失败");
+    }
+
+    /**
      * 处理时间 毫秒转为字符串 最多精确到分
      * @param time
      * @return
@@ -154,4 +207,18 @@ public class CardServiceImpl implements CardService {
 
     }
 
+    /**
+     * @author ziv
+     * @return zero time_stamp
+     */
+    // 今日0点
+    // 精确到毫秒的时间戳
+    private Long todayZeroTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
 }
