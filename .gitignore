@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 .DS_Store
+target/classes/com/cointeam/coin/controller/CollectController.class

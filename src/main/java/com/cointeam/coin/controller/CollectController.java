@@ -10,10 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author : ziv_l
@@ -35,7 +33,7 @@ public class CollectController {
      */
     @GetMapping("/collect/card/add")
     @ApiOperation("收藏卡片")
-    CommonResult<NoData> addCard(@RequestBody @NotNull Integer cardId){
+    CommonResult<NoData> addCard(@RequestParam Integer cardId) {
         return collectService.addCard(cardId);
     }
 
@@ -56,7 +54,7 @@ public class CollectController {
      */
     @GetMapping("/collect/card/delete")
     @ApiOperation("取消收藏卡片")
-    CommonResult<NoData> deleteCard(@RequestBody @NotNull Integer cardId){
+    CommonResult<NoData> deleteCard(@RequestParam Integer cardId){
         return collectService.deleteCard(cardId);
     }
 
@@ -67,7 +65,7 @@ public class CollectController {
      */
     @GetMapping("/collect/text/add")
     @ApiOperation("收藏文章")
-    CommonResult<NoData> addText(@RequestBody @NotNull Integer textId){
+    CommonResult<NoData> addText(@RequestParam Integer textId){
         return collectService.addText(textId);
     }
 
@@ -88,7 +86,7 @@ public class CollectController {
      */
     @GetMapping("/collect/text/delete")
     @ApiOperation("取消收藏文章")
-    CommonResult<NoData> deleteText(@RequestBody @NotNull Integer textId){
+    CommonResult<NoData> deleteText(@RequestParam Integer textId){
         return collectService.deleteText(textId);
     }
 }

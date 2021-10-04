@@ -2,11 +2,13 @@ package com.cointeam.coin.exception;
 
 import com.cointeam.coin.exception.myExceptions.TimeErrorException;
 import com.cointeam.coin.pojo.CommonResult;
+import com.cointeam.coin.pojo.dto.result.NoData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,5 +54,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TimeErrorException.class)
     public CommonResult timeErrorException(TimeErrorException e){
         return CommonResult.paramError("时间冲突");
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public CommonResult<NoData> MissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        String message = e.getParameterName() + " 参数异常";
+        return CommonResult.fail(message);
     }
 }
