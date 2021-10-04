@@ -18,4 +18,6 @@ public interface AuditCardMapper {
     int updateByPrimaryKeySelective(AuditCard record);
 
     int updateByPrimaryKey(AuditCard record);
+
+    AuditCard selectByPrimaryKey(Integer id);
 }

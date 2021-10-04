@@ -152,15 +152,28 @@ public class CardServiceImpl implements CardService {
         auditCard.setContent(insertCardParam.getContent());
         auditCard.setDeviceId(device.getId());
         auditCard.setTitle(insertCardParam.getTitle());
-        Long submitTimes = auditCard.getSubmitTimes();
-        auditCard.setSubmitTimes(submitTimes + 1);
+        auditCard.setStatus(0);
         auditCard.setTime(System.currentTimeMillis());
+        auditCard.setType(insertCardParam.getType());
 
-        // insert
-        if (auditCardMapper.insert(auditCard) == 1) {
-            insertCardParam.setId(auditCard.getId());
-            return CommonResult.success(insertCardParam);
+
+        if (insertCardParam.getId() == null) {
+            auditCard.setSubmitTimes(1L);
+            // insert
+            if (auditCardMapper.insert(auditCard) == 1) {
+                insertCardParam.setId(auditCard.getId());
+                return CommonResult.success(insertCardParam);
+            }
+        } else {
+            AuditCard auditCard1 = auditCardMapper.selectByPrimaryKey(insertCardParam.getId());
+            if (auditCard1 == null) return CommonResult.fail("更新失败");
+            Long submitTimes = auditCard1.getSubmitTimes();
+            auditCard.setSubmitTimes(submitTimes + 1);
+            auditCard.setId(insertCardParam.getId());
+            // update
+            if (auditCardMapper.updateByPrimaryKey(auditCard) == 1) return CommonResult.success(insertCardParam);
         }
+
         return CommonResult.fail("提交失败");
     }
 

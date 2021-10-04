@@ -45,6 +45,14 @@ public class CollectServiceImpl implements CollectService {
         // check card id
         Card card = cardMapper.selectByPrimaryKey(cardId);
         if (card == null) return CommonResult.fail("该卡片不存在");
+
+        List<MyCollectCard> myCollectCards = myCollectCardMapper.selectByDeviceId(device.getId());
+        if (!myCollectCards.isEmpty()) {
+            for (MyCollectCard myCollectCard : myCollectCards) {
+                if (myCollectCard.getCardId() == cardId) return CommonResult.fail("不能重复收藏");
+            }
+        }
+
         // add card to personal collect
         // set example
         MyCollectCard myCollectCard = new MyCollectCard();
@@ -107,6 +115,14 @@ public class CollectServiceImpl implements CollectService {
         // check text id
         Text text = textMapper.selectByPrimaryKey(textId);
         if (text == null) return CommonResult.fail("该文章不存在");
+
+        List<MyCollectText> myCollectTexts = myCollectTextMapper.selectByDeviceId(device.getId());
+        if (!myCollectTexts.isEmpty()) {
+            for (MyCollectText myCollectText : myCollectTexts) {
+                if (myCollectText.getTextId() == textId) return CommonResult.fail("不能重复收藏");
+            }
+        }
+
         // add card to personal collect
         // set example
         MyCollectText myCollectText = new MyCollectText();
