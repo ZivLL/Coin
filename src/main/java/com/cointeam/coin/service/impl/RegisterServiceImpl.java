@@ -29,13 +29,13 @@ public class RegisterServiceImpl implements RegisterService {
         String password = registerParam.getPassword();
 
         //md5加密
-        String s = MD5Utils.MD5Upper(password);
+//        String s = MD5Utils.MD5Upper(password);
 
         //获取当前时间戳
         long time = System.currentTimeMillis();
 
-        userMapper.insertUser(userId, nickName, s, time);
+        userMapper.insertUser(userId, nickName, password, time);
 
-        return CommonResult.success("注册成功");
+        return CommonResult.success("Register Was Successful!");
     }
 }

@@ -27,7 +27,7 @@ public interface UserMapper {
     /**
      * 向数据库中插入用户登录信息（注册接口），默认从1开始
      */
-    void insertUser(@Param("nickName") String nickName, @Param("userName") String userName, @Param("password") String password, @Param("time") Long time);
+    void insertUser(@Param("userId") String userId, @Param("nickName") String nickName, @Param("password") String password, @Param("time") Long time);
 
     /**
      * 通过userId来变更token

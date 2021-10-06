@@ -37,8 +37,8 @@ public class LoginServiceImpl implements LoginService {
         //通过name搜索数据库中是否有预设的user
         String userId = loginParam.getUserId();
         String password = loginParam.getPassword();
-        String s = MD5Utils.MD5Upper(password);
-        Device users = userMapper.selectUserByName(userId,s);
+//        String s = MD5Utils.MD5Upper(password);
+        Device users = userMapper.selectUserByName(userId,password);
 
         if (users == null) {
             return CommonResult.fail("A0400","账号密码错误");
