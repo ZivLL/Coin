@@ -32,10 +32,10 @@ public class InsertBranchParam {
      */
     private Integer type;
 
-    /**
-     * 提交分支的审核状态
-     */
-    private Integer status;
+//    /**
+//     * 提交分支的审核状态
+//     */
+//    private Integer status;
 
     /**
      * 分支提交到审核平台的时间

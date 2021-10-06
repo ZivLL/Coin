@@ -36,7 +36,7 @@
         ALTER TABLE device
         AUTO_INCREMENT = 1;
         insert coin.audit_branch(device_id, card_id, content, type, status, time, submit_times)
-        VALUES (#{insertBranchParam.deviceId},#{insertBranchParam.cardId},#{insertBranchParam.branchContent},#{insertBranchParam.type},#{insertBranchParam.status},#{insertBranchParam.time},1)
+        VALUES (#{insertBranchParam.deviceId},#{insertBranchParam.cardId},#{insertBranchParam.branchContent},#{insertBranchParam.type},0,#{insertBranchParam.time},1)
     </insert>
 
     <select id="selectCardBranches" resultType="com.cointeam.coin.pojo.bo.CardDetailsBo">

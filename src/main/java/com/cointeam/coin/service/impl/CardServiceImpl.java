@@ -217,7 +217,6 @@ public class CardServiceImpl implements CardService {
         } else {
             return format2;
         }
-
     }
 
     /**

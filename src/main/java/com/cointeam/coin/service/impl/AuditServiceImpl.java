@@ -91,7 +91,7 @@ public class AuditServiceImpl implements AuditService {
             // card
             temp.setCard(card);
             // cardDetailsBos
-            List<CardDetailsBo> cardDetailsBos = cardPartMapper.selectCarBranches(auditBranch.getCardId());
+            List<CardDetailsBo> cardDetailsBos = cardPartMapper.selectCardBranches(auditBranch.getCardId());
             if (cardDetailsBos.isEmpty()) continue;
             temp.setCardDetailsBos(cardDetailsBos);
             // MyBranches

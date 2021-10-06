@@ -32,5 +32,5 @@ public interface CardPartMapper {
      * @param cardId card id
      * @return result
      */
-    List<CardDetailsBo> selectCarBranches(Integer cardId);
+    List<CardDetailsBo> selectCardBranches(Integer cardId);
 }

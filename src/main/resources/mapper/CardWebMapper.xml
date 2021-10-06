@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cointeam.coin.mapper.CardWebMapper">
+
+    <select id="selectCardBranchVerifyWeb" resultType="com.cointeam.coin.pojo.po.CardBranchVerifyWebPo">
+        select ab.id, ab.device_id, ab.card_id, ab.content, ab.type, ab.status, ab.time, ab.submit_times
+        from coin.audit_branch ab
+        where status = #{cardBranchVerifyWebParam.status}
+    </select>
+
+    <select id="selectNickNameByDeviceId" resultType="java.lang.String">
+        select d.nick_name
+        from coin.device d
+        where d.id = #{deviceId}
+    </select>
+
+    <select id="selectTitleByCardId" resultType="java.lang.String">
+        select c.title
+        from coin.card c
+        where c.id = #{cardId}
+    </select>
+
+    <update id="updateWebStatus">
+        update coin.audit_branch
+        set status = #{cardBranchVerifyWebParam.status}
+        where id = #{cardBranchVerifyWebParam.id}
+    </update>
+</mapper>
