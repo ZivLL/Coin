@@ -21,8 +21,23 @@
     </select>
 
     <update id="updateWebStatus">
-        update coin.audit_branch
-        set status = #{cardBranchVerifyWebParam.status}
-        where id = #{cardBranchVerifyWebParam.id}
+        <foreach collection="cardBranchVerifyWebParam" item="item" index="index" open="" close="" separator=";">
+            update coin.audit_branch
+            set status = #{item.status}
+            where id = #{item.id}
+        </foreach>
     </update>
+
+    <select id="selectBranchById" resultType="com.cointeam.coin.pojo.domain.AuditBranch">
+        select ab.id, device_id, card_id, content, type, status, time, submit_times
+        from coin.audit_branch ab
+        where ab.id = #{cardBranchVerifyWebParam.id}
+    </select>
+
+    <insert id="insertCardBranch" useGeneratedKeys="true" keyColumn="id">
+        insert into coin.branch(device_id, card_id, content, time) VALUES
+        <foreach collection="cardBranchVerifyWebParam" item="item" index="index" open="" close="" separator=";">
+            (#{item.deviceId},#{item.cardId},#{item.content},#{item.time})
+        </foreach>
+    </insert>
 </mapper>
