@@ -9,4 +9,6 @@ public interface UpdateStatusForCardWebService {
 
     CommonResult<NoData> UpdateStatusForCardWeb(CardBranchVerifyWebParam cardBranchVerifyWebParam);
 
+    CommonResult<NoData> updateCardWebStatus(CardBranchVerifyWebParam cardBranchVerifyWebParam);
+
 }

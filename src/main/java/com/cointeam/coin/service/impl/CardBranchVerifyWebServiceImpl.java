@@ -7,6 +7,7 @@ import com.cointeam.coin.pojo.bo.CardBranchVerifyWebBo;
 import com.cointeam.coin.pojo.dto.param.CardBranchVerifyWebParam;
 import com.cointeam.coin.pojo.dto.result.CardBranchVerifyWebResult;
 import com.cointeam.coin.pojo.po.CardBranchVerifyWebPo;
+import com.cointeam.coin.pojo.po.CardWebPo;
 import com.cointeam.coin.service.CardBranchVerifyWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,47 @@ public class CardBranchVerifyWebServiceImpl implements CardBranchVerifyWebServic
         }
 
         cardBranchVerifyWebResult.setCardBranchVerifyWebBos(cardBranchVerifyWebBos);
+
         return CommonResult.success(cardBranchVerifyWebResult);
+    }
+
+    @Override
+    public CommonResult<CardBranchVerifyWebResult> cardWeb(CardBranchVerifyWebParam cardBranchVerifyWebParam) {
+
+        CardBranchVerifyWebResult cardBranchVerifyWebResult = new CardBranchVerifyWebResult();
+        ArrayList<CardBranchVerifyWebBo> cardBranchVerifyWebBos = new ArrayList<>();
+
+        ArrayList<CardWebPo> cardWebPos = cardWebMapper.selectCardWeb(cardBranchVerifyWebParam);
+
+        for (CardWebPo cardWebPo : cardWebPos) {
+            CardBranchVerifyWebBo cardBranchVerifyWebBo = new CardBranchVerifyWebBo();
+
+            Integer id = cardWebPo.getId();
+
+            Long time = cardWebPo.getTime();
+            String t = transformTime(time);
+
+            Integer deviceId = cardWebPo.getDeviceId();
+            String nickName = cardWebMapper.selectNickNameByDeviceId(deviceId);
+
+            String title = cardWebPo.getTitle();
+            String content = cardWebPo.getContent();
+            Integer status = cardWebPo.getStatus();
+
+            cardBranchVerifyWebBo.setId(id);
+            cardBranchVerifyWebBo.setTime(t);
+            cardBranchVerifyWebBo.setNickName(nickName);
+            cardBranchVerifyWebBo.setTitle(title);
+            cardBranchVerifyWebBo.setContent(content);
+            cardBranchVerifyWebBo.setStatus(status);
+
+            cardBranchVerifyWebBos.add(cardBranchVerifyWebBo);
+        }
+
+        cardBranchVerifyWebResult.setCardBranchVerifyWebBos(cardBranchVerifyWebBos);
+
+
+        return CommonResult.success();
     }
 
     /**

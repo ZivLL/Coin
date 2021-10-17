@@ -58,7 +58,6 @@ public class CardServiceImpl implements CardService {
         CardResult cardResult = new CardResult();
         ArrayList<CardBo> cardBos = new ArrayList<>();
         ArrayList<CardPo> cardPos = cardPartMapper.selectCard(roleParam);
-
         for (CardPo cardPo : cardPos) {
 
             CardBo cardBo = new CardBo();
@@ -66,6 +65,9 @@ public class CardServiceImpl implements CardService {
             cardBo.setId(cardPo.getId());
             cardBo.setTitle(cardPo.getTitle());
             cardBo.setContent(cardPo.getContent());
+            Long time = cardPo.getTime();
+            String StringTime = transformTime(time);
+            cardBo.setTime(StringTime);
             cardBo.setType(cardPo.getType());
 
             cardBos.add(cardBo);
@@ -196,7 +198,7 @@ public class CardServiceImpl implements CardService {
         int minute = now.getMinute();
         int second = now.getSecond();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");// 格式化时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// 格式化时间
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");// 格式化时间
         SimpleDateFormat sdf3 = new SimpleDateFormat("MM.dd");// 格式化时间
 

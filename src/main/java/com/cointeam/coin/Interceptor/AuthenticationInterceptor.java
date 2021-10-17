@@ -3,6 +3,7 @@ package com.cointeam.coin.Interceptor;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.cointeam.coin.annotation.PassToken;
 import com.cointeam.coin.annotation.UserLoginToken;
@@ -11,6 +12,7 @@ import com.cointeam.coin.pojo.domain.Device;
 import com.cointeam.coin.utils.redis.RedisUtil;
 import com.hanzoy.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,6 +41,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+        System.out.println(token);
         // 如果不是映射到方法直接通过
         if(!(object instanceof HandlerMethod)){
             return true;
@@ -61,29 +64,27 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     throw new RuntimeException("Illegal request，token is necessary!");
                 }
 
-//                try {
-                    String userId = jwtUtils.getBean(token, Device.class).getUserId();
-
-//                } catch (JWTDecodeException j) {
-//                    throw new RuntimeException("A0400");
-//                }
+                String userId;
+                try {
+                    userId = jwtUtils.getBean(token, Device.class).getUserId();
+                    System.out.println(userId);
+                } catch (JWTDecodeException j) {
+                    throw new RuntimeException("A0400");
+                }
 
                 Device Admin = userMapper.findAdminByUserName(userId);
+                System.out.println(Admin);
                 if (Admin == null) {
                     throw new RuntimeException("Illegal request，token is Invalid!");
                 }
 
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(Admin.getPassword())).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new RuntimeException("A0400");
-                }
-                return true;
+                return jwtUtils.checkToken(token);
             }
+        }else{
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

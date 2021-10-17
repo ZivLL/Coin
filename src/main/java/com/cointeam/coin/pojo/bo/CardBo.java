@@ -11,7 +11,7 @@ public class CardBo {
 
     private String content;
 
-    private String Time;
+    private String time;
 
     private Integer type;
 

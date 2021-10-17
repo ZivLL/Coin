@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class LoginParam {
 
-    private String nickName;
+//    private String nickName;
 
     private String userId;
 

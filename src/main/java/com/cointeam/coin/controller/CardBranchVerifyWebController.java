@@ -27,4 +27,12 @@ public class CardBranchVerifyWebController {
         return cardBranchVerifyWebService.cardBranchVerifyWeb(cardBranchVerifyWebParam);
 
     }
+
+    @PostMapping("/card/web")
+    public CommonResult<CardBranchVerifyWebResult> cardWeb(@RequestBody CardBranchVerifyWebParam cardBranchVerifyWebParam){
+
+        return cardBranchVerifyWebService.cardWeb(cardBranchVerifyWebParam);
+
+    }
+
 }

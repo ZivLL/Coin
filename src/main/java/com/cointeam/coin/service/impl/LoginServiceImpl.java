@@ -39,7 +39,6 @@ public class LoginServiceImpl implements LoginService {
         String password = loginParam.getPassword();
 //        String s = MD5Utils.MD5Upper(password);
         Device users = userMapper.selectUserByName(userId,password);
-
         if (users == null) {
             return CommonResult.fail("A0400","账号密码错误");
         } else {
@@ -53,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String writeUserToToken(Object user) {
-        return jwtUtils.createTokenCustomFields(user, "userName", "password");
+        return jwtUtils.createTokenCustomFields(user, "userId", "password");
     }
 
 }

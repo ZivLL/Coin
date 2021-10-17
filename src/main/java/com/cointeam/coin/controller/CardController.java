@@ -20,22 +20,26 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/role")
-@UserLoginToken
+
 public class CardController {
 
     @Autowired
     CardService cardService;
 
     @PostMapping("/card/type")
+    @UserLoginToken
     public CommonResult<CardResult> selectCard(@RequestBody RoleParam roleParam){
         return cardService.selectCard(roleParam);
     }
 
+
     @GetMapping("/card/details")
+    @UserLoginToken
     public CommonResult<CardDetailsResult> selectCardDetails(@RequestParam RoleParam roleParam){
         return cardService.selectCardDetails(roleParam);
     }
 
+    @UserLoginToken
     @PostMapping("/add/card/branch")
     public CommonResult<NoData> insertBranch(@RequestBody InsertBranchParam insertBranchParam) {
         return cardService.insertBranch(insertBranchParam);

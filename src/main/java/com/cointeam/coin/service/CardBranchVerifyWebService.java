@@ -8,4 +8,6 @@ public interface CardBranchVerifyWebService {
 
     CommonResult<CardBranchVerifyWebResult> cardBranchVerifyWeb(CardBranchVerifyWebParam cardBranchVerifyWebParam);
 
+    CommonResult<CardBranchVerifyWebResult> cardWeb(CardBranchVerifyWebParam cardBranchVerifyWebParam);
+
 }

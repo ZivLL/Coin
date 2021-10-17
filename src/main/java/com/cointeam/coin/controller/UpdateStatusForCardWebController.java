@@ -28,5 +28,12 @@ public class UpdateStatusForCardWebController {
 
     }
 
+    @PostMapping("/updateCardWebStatus")
+    public CommonResult<NoData> updateCardWebStatus(@RequestBody CardBranchVerifyWebParam cardBranchVerifyWebParam){
+
+        return updateStatusForCardWebService.updateCardWebStatus(cardBranchVerifyWebParam);
+
+    }
+
 
 }
