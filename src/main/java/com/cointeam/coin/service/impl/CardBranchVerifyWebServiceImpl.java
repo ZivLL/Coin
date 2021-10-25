@@ -99,7 +99,7 @@ public class CardBranchVerifyWebServiceImpl implements CardBranchVerifyWebServic
         cardBranchVerifyWebResult.setCardBranchVerifyWebBos(cardBranchVerifyWebBos);
 
 
-        return CommonResult.success();
+        return CommonResult.success(cardBranchVerifyWebResult);
     }
 
     /**
@@ -121,7 +121,7 @@ public class CardBranchVerifyWebServiceImpl implements CardBranchVerifyWebServic
         int minute = now.getMinute();
         int second = now.getSecond();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");// 格式化时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// 格式化时间
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");// 格式化时间
         SimpleDateFormat sdf3 = new SimpleDateFormat("MM.dd");// 格式化时间
 

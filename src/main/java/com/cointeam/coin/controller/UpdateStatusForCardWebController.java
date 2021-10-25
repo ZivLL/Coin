@@ -1,5 +1,7 @@
 package com.cointeam.coin.controller;
 
+import com.cointeam.coin.annotation.PassToken;
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.CardBranchVerifyWebParam;
 import com.cointeam.coin.pojo.dto.result.NoData;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @Slf4j
 @Api(tags = "cardWeb：李春强")
 @CrossOrigin
@@ -21,15 +25,17 @@ public class UpdateStatusForCardWebController {
     @Autowired
     UpdateStatusForCardWebService updateStatusForCardWebService;
 
+    @PassToken
     @PostMapping("/updateWebStatus")
-    public CommonResult<NoData> UpdateStatusForCardWeb(@RequestBody CardBranchVerifyWebParam cardBranchVerifyWebParam){
+    public CommonResult<NoData> UpdateStatusForCardWeb(@RequestBody ArrayList<CardBranchVerifyWebParam> cardBranchVerifyWebParam){
 
         return updateStatusForCardWebService.UpdateStatusForCardWeb(cardBranchVerifyWebParam);
 
     }
 
+    @PassToken
     @PostMapping("/updateCardWebStatus")
-    public CommonResult<NoData> updateCardWebStatus(@RequestBody CardBranchVerifyWebParam cardBranchVerifyWebParam){
+    public CommonResult<NoData> updateCardWebStatus(@RequestBody ArrayList<CardBranchVerifyWebParam> cardBranchVerifyWebParam){
 
         return updateStatusForCardWebService.updateCardWebStatus(cardBranchVerifyWebParam);
 

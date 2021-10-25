@@ -5,10 +5,12 @@ import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.CardBranchVerifyWebParam;
 import com.cointeam.coin.pojo.dto.result.NoData;
 
+import java.util.ArrayList;
+
 public interface UpdateStatusForCardWebService {
 
-    CommonResult<NoData> UpdateStatusForCardWeb(CardBranchVerifyWebParam cardBranchVerifyWebParam);
+    CommonResult<NoData> UpdateStatusForCardWeb(ArrayList<CardBranchVerifyWebParam> cardBranchVerifyWebParam);
 
-    CommonResult<NoData> updateCardWebStatus(CardBranchVerifyWebParam cardBranchVerifyWebParam);
+    CommonResult<NoData> updateCardWebStatus(ArrayList<CardBranchVerifyWebParam> cardBranchVerifyWebParam);
 
 }

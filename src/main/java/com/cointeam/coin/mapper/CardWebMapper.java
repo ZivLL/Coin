@@ -28,11 +28,11 @@ public interface CardWebMapper {
 
     void updateCardWebStatus(@Param("cardBranchVerifyWebParam") CardBranchVerifyWebParam cardBranchVerifyWebParam);
 
-    ArrayList<AuditBranch> selectBranchById(@Param("cardBranchVerifyWebParam") CardBranchVerifyWebParam cardBranchVerifyWebParam);
+    AuditBranch selectBranchById(@Param("cardBranchVerifyWebParam") CardBranchVerifyWebParam cardBranchVerifyWebParam);
 
-    ArrayList<AuditCard> selectAuditCardId(@Param("cardBranchVerifyWebParam") CardBranchVerifyWebParam cardBranchVerifyWebParam);
+    AuditCard selectAuditCardId(@Param("cardBranchVerifyWebParam") CardBranchVerifyWebParam cardBranchVerifyWebParam);
 
-    void insertCardBranch(@Param("auditBranches") ArrayList<AuditBranch> auditBranches);
+    void insertCardBranch(@Param("auditBranches") AuditBranch auditBranches);
 
-    void insertCard(@Param("card") ArrayList<AuditCard> card);
+    void insertCard(@Param("card") AuditCard card);
 }

@@ -19,25 +19,29 @@ public class UpdateStatusForCardWebServiceImpl implements UpdateStatusForCardWeb
     CardWebMapper cardWebMapper;
 
     @Override
-    public CommonResult<NoData> UpdateStatusForCardWeb(CardBranchVerifyWebParam cardBranchVerifyWebParam) {
+    public CommonResult<NoData> UpdateStatusForCardWeb(ArrayList<CardBranchVerifyWebParam> cardBranchVerifyWebParam) {
 
-        cardWebMapper.updateWebStatus(cardBranchVerifyWebParam);
 
-        ArrayList<AuditBranch> auditBranches = cardWebMapper.selectBranchById(cardBranchVerifyWebParam);
+        for (CardBranchVerifyWebParam branchVerifyWebParam : cardBranchVerifyWebParam) {
+            cardWebMapper.updateWebStatus(branchVerifyWebParam);
+            AuditBranch auditBranch = cardWebMapper.selectBranchById(branchVerifyWebParam);
+            cardWebMapper.insertCardBranch(auditBranch);
+        }
 
-        cardWebMapper.insertCardBranch(auditBranches);
+
 
         return CommonResult.success("修改状态成功");
     }
 
     @Override
-    public CommonResult<NoData> updateCardWebStatus(CardBranchVerifyWebParam cardBranchVerifyWebParam) {
+    public CommonResult<NoData> updateCardWebStatus(ArrayList<CardBranchVerifyWebParam> cardBranchVerifyWebParam) {
 
-        cardWebMapper.updateCardWebStatus(cardBranchVerifyWebParam);
+        for (CardBranchVerifyWebParam branchVerifyWebParam : cardBranchVerifyWebParam) {
+            cardWebMapper.updateCardWebStatus(branchVerifyWebParam);
+            AuditCard auditCard = cardWebMapper.selectAuditCardId(branchVerifyWebParam);
+            cardWebMapper.insertCard(auditCard);
+        }
 
-        ArrayList<AuditCard> auditCards = cardWebMapper.selectAuditCardId(cardBranchVerifyWebParam);
-
-        cardWebMapper.insertCard(auditCards);
 
         return CommonResult.success("修改状态成功");
     }

@@ -26,19 +26,15 @@
     </select>
 
     <update id="updateWebStatus">
-        <foreach collection="cardBranchVerifyWebParam" item="item" index="index" open="" close="" separator=";">
-            update coin.audit_branch
-            set status = #{item.status}
-            where id = #{item.id}
-        </foreach>
+        update coin.audit_branch ab
+        set ab.status = #{cardBranchVerifyWebParam.status}
+        where ab.id = #{cardBranchVerifyWebParam.id}
     </update>
 
     <update id="updateCardWebStatus">
-        <foreach collection="cardBranchVerifyWebParam" item="item" index="index" open="" close="" separator=";">
             update coin.audit_card
-            set status = #{item.status}
-            where id = #{item.id}
-        </foreach>
+            set status = #{cardBranchVerifyWebParam.status}
+            where id = #{cardBranchVerifyWebParam.id}
     </update>
 
     <select id="selectBranchById" resultType="com.cointeam.coin.pojo.domain.AuditBranch">
@@ -50,6 +46,7 @@
     <select id="selectAuditCardId" resultType="com.cointeam.coin.pojo.domain.AuditCard">
         select ac.id, ac.device_id, ac.title, ac.content, ac.type, ac.status, ac.time, ac.submit_times
         from coin.audit_card ac
+        where ac.id = #{cardBranchVerifyWebParam.id}
     </select>
 
     <select id="selectCardWeb" resultType="com.cointeam.coin.pojo.po.CardWebPo">
@@ -63,17 +60,13 @@
     </select>
 
     <insert id="insertCardBranch" useGeneratedKeys="true" keyColumn="id">
-        insert into coin.branch(device_id, card_id, content, time) VALUES
-        <foreach collection="cardBranchVerifyWebParam" item="item" index="index" open="" close="" separator=";">
-            (#{item.deviceId},#{item.cardId},#{item.content},#{item.time})
-        </foreach>
+        insert into coin.branch(device_id, card_id, content, time)
+        VALUES (#{auditBranches.deviceId},#{auditBranches.cardId},#{auditBranches.content},#{auditBranches.time})
     </insert>
 
-    <insert id="insertCard">
-        insert into coin.card(device_id, title, content, time, type) VALUES
-        <foreach collection="cardBranchVerifyWebParam" item="item" index="index" open="" close="" separator=";">
-            (#{item.deviceId},#{item.title},#{item.content},#{item.time},#{item.type})
-        </foreach>
+    <insert id="insertCard" useGeneratedKeys="true" keyColumn="id">
+        insert into coin.card(device_id, title, content, time, type)
+        VALUES (#{card.deviceId},#{card.title},#{card.content},#{card.time},#{card.type})
     </insert>
 
 </mapper>

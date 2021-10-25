@@ -1,5 +1,6 @@
 package com.cointeam.coin.controller;
 
+import com.cointeam.coin.annotation.PassToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.param.CardBranchVerifyWebParam;
 import com.cointeam.coin.pojo.dto.result.CardBranchVerifyWebResult;
@@ -21,6 +22,7 @@ public class CardBranchVerifyWebController {
     @Autowired
     CardBranchVerifyWebService cardBranchVerifyWebService;
 
+    @PassToken
     @PostMapping("/card/branch/web")
     public CommonResult<CardBranchVerifyWebResult> cardBranchVerifyWeb(@RequestBody CardBranchVerifyWebParam cardBranchVerifyWebParam){
 
@@ -28,6 +30,7 @@ public class CardBranchVerifyWebController {
 
     }
 
+    @PassToken
     @PostMapping("/card/web")
     public CommonResult<CardBranchVerifyWebResult> cardWeb(@RequestBody CardBranchVerifyWebParam cardBranchVerifyWebParam){
 
