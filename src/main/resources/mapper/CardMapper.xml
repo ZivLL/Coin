@@ -18,12 +18,21 @@
     from card
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByDeviceId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from card
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from card
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cointeam.coin.pojo.domain.Card">
-    insert into card (id, device_id, title, 
+    <selectKey  keyProperty="id" order="AFTER" resultType="int">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into card (id, device_id, title,
       content, time, type)
     values (#{id,jdbcType=INTEGER}, #{deviceId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{content,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, #{type,jdbcType=INTEGER})

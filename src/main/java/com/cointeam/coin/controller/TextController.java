@@ -3,6 +3,7 @@ package com.cointeam.coin.controller;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
 import com.cointeam.coin.pojo.dto.param.TextParam;
+import com.cointeam.coin.pojo.dto.result.TextListReturn;
 import com.cointeam.coin.service.TextService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +35,6 @@ public class TextController {
     @PostMapping("/text/upload")
     @ApiOperation("上传新的文章")
     public CommonResult<Text> textUpload(@RequestBody @Validated TextParam textParam){
-        System.out.println("访问了 /text/upload 请求，参数：" + textParam.toString());
         return textService.textUpload(textParam);
     }
 
@@ -49,4 +49,15 @@ public class TextController {
         return textService.getText(type);
     }
 
+    /**
+     * 获取文章列表
+     * @param type 板块参数
+     * @return 文章列表
+     */
+    @GetMapping("/text/list")
+    @ApiOperation("获取所有文章")
+    public CommonResult<TextListReturn> getTextList(@RequestParam @NotNull Integer type) {
+        System.out.println("访问了 /text/today 请求");
+        return textService.getTextList(type);
+    }
 }

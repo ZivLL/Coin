@@ -1,10 +1,6 @@
 package com.cointeam.coin.Interceptor;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.cointeam.coin.annotation.PassToken;
 import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.mapper.UserMapper;
@@ -12,10 +8,10 @@ import com.cointeam.coin.pojo.domain.Device;
 import com.cointeam.coin.utils.redis.RedisUtil;
 import com.hanzoy.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
@@ -41,7 +37,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
-        System.out.println(token);
         // 如果不是映射到方法直接通过
         if(!(object instanceof HandlerMethod)){
             return true;
