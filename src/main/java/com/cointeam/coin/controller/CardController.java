@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Slf4j
 @Api(tags = "card：李春强")
 @CrossOrigin
@@ -33,16 +36,16 @@ public class CardController {
     }
 
 
-    @GetMapping("/card/details")
+    @PostMapping("/card/details")
     @UserLoginToken
-    public CommonResult<CardDetailsResult> selectCardDetails(@RequestParam RoleParam roleParam){
+    public CommonResult<CardDetailsResult> selectCardDetails(@RequestBody RoleParam roleParam){
         return cardService.selectCardDetails(roleParam);
     }
 
     @UserLoginToken
     @PostMapping("/add/card/branch")
-    public CommonResult<NoData> insertBranch(@RequestBody InsertBranchParam insertBranchParam) {
-        return cardService.insertBranch(insertBranchParam);
+    public CommonResult<NoData> insertBranch(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse, @RequestBody InsertBranchParam insertBranchParam) {
+        return cardService.insertBranch(httpServletRequest,httpServletResponse,insertBranchParam);
     }
 
 
@@ -52,6 +55,7 @@ public class CardController {
      * @param insertCardParam 参数
      * @return 操作结果
      */
+    @UserLoginToken
     @PostMapping("/add/card")
     public CommonResult<InsertCardParam> insertCard(@RequestBody @Validated InsertCardParam insertCardParam) {
         return cardService.insertCard(insertCardParam);

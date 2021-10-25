@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cointeam.coin.mapper.ItemCFMapper">
+
+    <select id="selectUserIdByDeviceId" resultType="java.lang.String">
+        select user_id
+        from coin.device
+        where id = #{deviceId}
+    </select>
+
+    <select id="selectAllCard" resultType="com.cointeam.coin.pojo.domain.Card">
+        select *
+        from coin.card
+    </select>
+
+    <select id="selectAllText" resultType="com.cointeam.coin.pojo.domain.Text">
+        select *
+        from coin.text
+    </select>
+
+    <select id="selectAllDevice" resultType="com.cointeam.coin.pojo.domain.Device">
+        select *
+        from coin.device
+    </select>
+
+    <select id="selectAllMyCollectCard" resultType="com.cointeam.coin.pojo.domain.MyCollectCard">
+        select *
+        from coin.my_collect_card
+    </select>
+
+    <select id="selectMyCollectCard" resultType="com.cointeam.coin.pojo.domain.MyCollectCard">
+        select *
+        from coin.my_collect_card
+        where device_id = #{UserId}
+    </select>
+
+    <select id="selectMyCollectText" resultType="com.cointeam.coin.pojo.domain.MyCollectText">
+        select *
+        from coin.my_collect_text
+    </select>
+
+    <select id="selectCollectNumber" resultType="java.lang.Integer">
+        select SUM(card_id)
+        from coin.my_collect_card
+        group by card_id
+    </select>
+
+
+</mapper>

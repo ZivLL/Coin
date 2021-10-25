@@ -1,5 +1,6 @@
 package com.cointeam.coin.service.impl;
 
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.mapper.AuditCardMapper;
 import com.cointeam.coin.mapper.CardPartMapper;
 import com.cointeam.coin.mapper.DeviceMapper;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -118,9 +120,11 @@ public class CardServiceImpl implements CardService {
      * 提交分支到审核平台
      */
     @Override
-    public CommonResult<NoData> insertBranch(InsertBranchParam insertBranchParam) {
-
-        cardPartMapper.insertAuditBranch(insertBranchParam);
+    @UserLoginToken
+    public CommonResult<NoData> insertBranch(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, InsertBranchParam insertBranchParam) {
+        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+        Integer deviceId = cardPartMapper.selectDeviceIdByToken(token);
+        cardPartMapper.insertAuditBranch(deviceId, insertBranchParam);
 
         return CommonResult.success("提交成功");
     }

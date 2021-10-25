@@ -36,8 +36,14 @@
         ALTER TABLE device
         AUTO_INCREMENT = 1;
         insert coin.audit_branch(device_id, card_id, content, type, status, time, submit_times)
-        VALUES (#{insertBranchParam.deviceId},#{insertBranchParam.cardId},#{insertBranchParam.branchContent},#{insertBranchParam.type},0,#{insertBranchParam.time},1)
+        VALUES (#{deviceId},#{insertBranchParam.cardId},#{insertBranchParam.branchContent},#{insertBranchParam.type},0,#{insertBranchParam.time},1)
     </insert>
+
+    <select id="selectDeviceIdByToken" resultType="java.lang.Integer">
+        select id
+        from coin.device
+        where token = #{token}
+    </select>
 
     <select id="selectCardBranches" resultType="com.cointeam.coin.pojo.bo.CardDetailsBo">
         select bac.branch_id, bac.device_id, bac.branch_card_id, bac.branch_content, bac.branch_card_id, bac.branchTime,

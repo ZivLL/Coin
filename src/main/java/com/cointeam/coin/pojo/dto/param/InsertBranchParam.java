@@ -13,11 +13,6 @@ import lombok.Data;
 public class InsertBranchParam {
 
     /**
-     * 设备id
-     */
-    private Integer deviceId;
-
-    /**
      * 卡片id
      */
     private Integer cardId;
