@@ -4,6 +4,7 @@ import com.cointeam.coin.mapper.TextMapper;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
 import com.cointeam.coin.pojo.dto.param.TextParam;
+import com.cointeam.coin.pojo.dto.result.TextListReturn;
 import com.cointeam.coin.service.TextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,21 @@ public class TextServiceImpl implements TextService {
             }
         }
         return CommonResult.fail("数据库资源错误");
+    }
+
+    @Override
+    public CommonResult<TextListReturn> getTextList(Integer type) {
+        // check type
+        if (type <= 0 || type > 4) return CommonResult.fail("参数异常");
+
+        List<Text> texts = textMapper.selectAllByType(type);
+        if (texts.isEmpty()) return CommonResult.fail("数据库暂无文章");
+
+        // 封装返回类
+        TextListReturn textListReturn = new TextListReturn();
+        textListReturn.setTexts(texts);
+        textListReturn.setTotal(texts.size());
+
+        return CommonResult.success(textListReturn);
     }
 }

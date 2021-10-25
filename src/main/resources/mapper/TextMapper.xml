@@ -25,7 +25,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cointeam.coin.pojo.domain.Text">
-    insert into text (id, title, author, 
+    <selectKey  keyProperty="id" order="AFTER" resultType="int">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into text (id, title, author,
       content, pic_url, time, 
       type, public_time)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
