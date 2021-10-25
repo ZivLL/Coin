@@ -13,6 +13,8 @@ public class Card {
 
     private Integer type;
 
+    private Double w;
+
     public Integer getId() {
         return id;
     }
@@ -59,6 +61,14 @@ public class Card {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Double getW() {
+        return w;
+    }
+
+    public void setW(Double w) {
+        this.w = w;
     }
 
     @Override

@@ -25,7 +25,9 @@ public interface CardPartMapper {
 
     ArrayList<CardDetailsPo> selectCardContent(@Param("roleParam") RoleParam roleParam);
 
-    void insertAuditBranch(@Param("insertBranchParam") InsertBranchParam insertBranchParam);
+    void insertAuditBranch(@Param("deviceId") Integer deviceId ,@Param("insertBranchParam") InsertBranchParam insertBranchParam);
+
+    Integer selectDeviceIdByToken(@Param("token") String token);
 
     /**
      * @author ziv
