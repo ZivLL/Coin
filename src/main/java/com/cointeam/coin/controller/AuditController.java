@@ -1,6 +1,7 @@
 package com.cointeam.coin.controller;
 
 
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.result.AuditBranchReturn;
 import com.cointeam.coin.pojo.dto.result.AuditCardReturn;
@@ -36,6 +37,7 @@ public class AuditController {
      */
     @GetMapping("/cards")
     @ApiOperation("获取我的分享：卡片")
+    @UserLoginToken
     public CommonResult<AuditCardReturn> getAuditingCards(){
         return auditService.getAuditingCards();
     }
@@ -46,6 +48,7 @@ public class AuditController {
      */
     @GetMapping("/branches")
     @ApiOperation("获取我的分享：分支")
+    @UserLoginToken
     public CommonResult<AuditBranchReturn> getAuditingBranch(){
         return auditService.getAuditingBranch();
     }

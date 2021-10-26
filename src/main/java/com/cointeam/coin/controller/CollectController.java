@@ -1,5 +1,6 @@
 package com.cointeam.coin.controller;
 
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.dto.result.CollectCardsReturn;
 import com.cointeam.coin.pojo.dto.result.CollectTextsReturn;
@@ -33,6 +34,7 @@ public class CollectController {
      */
     @GetMapping("/collect/card/add")
     @ApiOperation("收藏卡片")
+    @UserLoginToken
     CommonResult<NoData> addCard(@RequestParam Integer cardId) {
         return collectService.addCard(cardId);
     }
@@ -43,6 +45,7 @@ public class CollectController {
      */
     @GetMapping("/collect/cards")
     @ApiOperation("获取收藏卡片")
+    @UserLoginToken
     CommonResult<CollectCardsReturn> getCards(){
         return collectService.getCards();
     }
@@ -54,6 +57,7 @@ public class CollectController {
      */
     @GetMapping("/collect/card/delete")
     @ApiOperation("取消收藏卡片")
+    @UserLoginToken
     CommonResult<NoData> deleteCard(@RequestParam Integer cardId){
         return collectService.deleteCard(cardId);
     }
@@ -65,6 +69,7 @@ public class CollectController {
      */
     @GetMapping("/collect/text/add")
     @ApiOperation("收藏文章")
+    @UserLoginToken
     CommonResult<NoData> addText(@RequestParam Integer textId){
         return collectService.addText(textId);
     }
@@ -75,6 +80,7 @@ public class CollectController {
      */
     @GetMapping("/collect/texts")
     @ApiOperation("获取收藏文章")
+    @UserLoginToken
     CommonResult<CollectTextsReturn> getTexts(){
         return collectService.getTexts();
     }
@@ -86,6 +92,7 @@ public class CollectController {
      */
     @GetMapping("/collect/text/delete")
     @ApiOperation("取消收藏文章")
+    @UserLoginToken
     CommonResult<NoData> deleteText(@RequestParam Integer textId){
         return collectService.deleteText(textId);
     }

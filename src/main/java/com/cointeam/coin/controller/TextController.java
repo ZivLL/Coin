@@ -1,5 +1,6 @@
 package com.cointeam.coin.controller;
 
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Text;
 import com.cointeam.coin.pojo.dto.param.TextParam;
@@ -34,6 +35,7 @@ public class TextController {
      */
     @PostMapping("/text/upload")
     @ApiOperation("上传新的文章")
+    @UserLoginToken
     public CommonResult<Text> textUpload(@RequestBody @Validated TextParam textParam){
         return textService.textUpload(textParam);
     }
@@ -44,6 +46,7 @@ public class TextController {
      */
     @GetMapping("/role/text")
     @ApiOperation("获取今日文章")
+    @UserLoginToken
     public CommonResult<Text> getText(@RequestParam @NotNull Integer type) {
         System.out.println("访问了 /text/today 请求");
         return textService.getText(type);
@@ -56,6 +59,7 @@ public class TextController {
      */
     @GetMapping("/text/list")
     @ApiOperation("获取所有文章")
+    @UserLoginToken
     public CommonResult<TextListReturn> getTextList(@RequestParam @NotNull Integer type) {
         System.out.println("访问了 /text/today 请求");
         return textService.getTextList(type);

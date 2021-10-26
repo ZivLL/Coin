@@ -1,5 +1,6 @@
 package com.cointeam.coin.controller;
 
+import com.cointeam.coin.annotation.UserLoginToken;
 import com.cointeam.coin.pojo.CommonResult;
 import com.cointeam.coin.pojo.domain.Card;
 import com.cointeam.coin.pojo.dto.param.CardParam;
@@ -33,6 +34,7 @@ public class CardBController {
      */
     @PostMapping("/card/upload")
     @ApiOperation("管理员上传新的卡片")
+    @UserLoginToken
     public CommonResult<Card> cardUpload(@RequestBody @Validated CardParam cardParam) {
         return cardBService.cardUpload(cardParam);
     }
@@ -43,6 +45,7 @@ public class CardBController {
      */
     @GetMapping("/card/list")
     @ApiOperation("管理员获取card列表")
+    @UserLoginToken
     public CommonResult<CollectCardsReturn> getCardList() {
         return cardBService.getCardList();
     }
